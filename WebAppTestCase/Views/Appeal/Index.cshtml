@@ -1,0 +1,57 @@
+﻿@model CollectionViewModel<Appeal>
+@addTagHelper *, WebAppTestCase
+@{ 
+    ViewData["Title"] = "Список заявок";
+    ViewBag.page = Model.PageViewModel.PageNumber;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 3%">№</th>
+            <th style="width: 19%">Дата и время</th>
+            <th style="width: 19%">EMail</th>
+            <th style="width: 19%">Телефон</th>
+            <th style="width: 40%">Сообщение</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = Model.ItemNo;
+            foreach (var item in Model.Items)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber">@item.CreatedAt</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber">@item.Email</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber">@Html.DisplayForPhone(item.Phone, PhoneNumberFormat.NATIONAL)</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-page="@Model.PageViewModel.PageNumber">@item.Message</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    @*
+        <div class="col-2">
+            <a asp-action="Create"
+               asp-route-page="@Model.PageViewModel.PageNumber"
+               class="btn  btn-outline-secondary">
+                Создать заявку
+            </a>
+        </div>
+            *@
+    <div class="col">
+        <page-link page-model="@Model.PageViewModel" page-action="Index"></page-link>
+    </div>
+</div>

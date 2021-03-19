@@ -1,0 +1,49 @@
+﻿@model AppealViewModel
+
+@{
+    var headerText = (Model.IsEditing) ? "Редактирование заявки" : "Добавление новой заявки";
+    <h2>@headerText</h2>
+}
+
+<form action="" method="post" style="margin-top: 2em;" enctype="multipart/form-data">
+    <div class="form-row">
+        <div class="form-group col-12">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" readonly="@(Model.IsEditing)">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-12">
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" class="form-control" readonly="@(Model.IsEditing)">
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-12">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" class="form-control" text-wrap:normal" type="text" rows="12"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="submit" value="Сохранить" class="btn btn-outline-primary" formaction="@Url.Action("Save")" />
+        @if (Model.IsEditing)
+        {
+            <input type="submit" value="Удалить" class="btn btn-outline-danger" formaction= "@Url.Action("Delete")"/>
+        }
+        <input type="submit" value="Отмена" class="btn btn-outline-secondary" formaction="@Url.Action("Cancel")" />
+    </div>
+
+    <div>
+        <input asp-for="Id" type="hidden">
+        <input asp-for="Page" type="hidden">
+        <input asp-for="IsEditing" type="hidden">
+    </div>
+</form>
+
